@@ -36,28 +36,19 @@ if (!_.endsWith(inputDir, path.sep)) {
 }
 let files = glob.sync(inputDir + '*');
 let promises = [];
-let keys = [];
 // ...and store them in Redis
 for (file of files) {
 	let filename = file.replace(inputDir, '');
 	let key = process.env.DRAY_JOB_ID + '_' + filename;
 
-	promises.push(client.set(
-		key,
+	promises.push(client.hsetAsync(
+		process.env.DRAY_JOB_ID,
+		filename,
 		fs.readFileSync(file).toString()
 	));
-	promises.push(client.expire(key, process.env.REDIS_EXPIRE_IN));
-	keys.push(key);
 }
-
-// Next store the list of files
-// We're doing this instead of HSET because hashes don't have
-// expiration: https://github.com/antirez/redis/issues/167#issuecomment-2559040
-promises.push(client.setAsync(
-	process.env.DRAY_JOB_ID,
-	JSON.stringify(keys)
-));
-promises.push(client.expire(
+// Expire this record after some time
+promises.push(client.expireAsync(
 	process.env.DRAY_JOB_ID,
 	process.env.REDIS_EXPIRE_IN
 ));
@@ -65,9 +56,9 @@ promises.push(client.expire(
 // Once everything is done, exit
 Promise.all(promises).then(function resolved(value){
 	client.quit();
-	// process.exit(0);
+	process.exit(0);
 }, function rejected(reason){
 	client.quit();
 	console.error(reason);
-	// process.exit(4);
+	process.exit(4);
 });
