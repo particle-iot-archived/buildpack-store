@@ -1,0 +1,2 @@
+cd /app
+/bin/run-in-nvm node index.js

@@ -1,0 +1,23 @@
+{
+  "name": "buildpack-store",
+  "version": "0.0.1",
+  "description": "Buildpack storing resulting binaries in Redis",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spark/buildpack-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spark/buildpack-store/issues"
+  },
+  "homepage": "https://github.com/spark/buildpack-store#readme",
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "dotenv": "^2.0.0",
+    "glob": "^7.0.3",
+    "lodash": "^4.13.1",
+    "redis": "^2.6.1"
+  }
+}
