@@ -5,6 +5,7 @@ let glob = require('glob');
 let _ = require('lodash');
 let bluebird = require('bluebird');
 
+// Set up Redis client
 let redis = require('redis');
 bluebird.promisifyAll(redis.RedisClient.prototype);
 let client = redis.createClient(process.env.REDIS_URL);
