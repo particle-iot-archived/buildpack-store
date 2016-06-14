@@ -9,8 +9,8 @@ let bluebird = require('bluebird');
 let redis = require('redis');
 bluebird.promisifyAll(redis.RedisClient.prototype);
 let client = redis.createClient(process.env.REDIS_URL);
-client.on("error", function (err) {
-	console.error("Redis error " + err);
+client.on('error', err => {
+	console.error(`Redis error ${err}`);
 	process.exit(1);
 });
 
@@ -35,12 +35,12 @@ let inputDir = process.env.INPUT_DIR;
 if (!_.endsWith(inputDir, path.sep)) {
 	inputDir += path.sep;
 }
-let files = glob.sync(inputDir + '*');
+let files = glob.sync(`${inputDir}*`);
 let promises = [];
 // ...and store them in Redis
 for (file of files) {
 	let filename = file.replace(inputDir, '');
-	let key = process.env.DRAY_JOB_ID + '_' + filename;
+	let key = `${process.env.DRAY_JOB_ID}_${filename}`;
 
 	promises.push(client.hsetAsync(
 		process.env.DRAY_JOB_ID,
@@ -55,10 +55,10 @@ promises.push(client.expireAsync(
 ));
 
 // Once everything is done, exit
-Promise.all(promises).then(function resolved(value){
+Promise.all(promises).then(value => {
 	client.quit();
 	process.exit(0);
-}, function rejected(reason){
+}, reason => {
 	client.quit();
 	console.error(reason);
 	process.exit(4);
