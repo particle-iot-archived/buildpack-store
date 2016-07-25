@@ -7,8 +7,6 @@ This buildpack takes all files from input directory (`/input`) and stores them i
 
 ## Building image
 
-**Before building this image, build or fetch [buildpack-base](https://github.com/spark/buildpack-base).**
-
 ```bash
 $ export BUILDPACK_IMAGE=store
 $ git clone "git@github.com:spark/buildpack-${BUILDPACK_IMAGE}.git"

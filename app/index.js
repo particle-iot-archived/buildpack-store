@@ -45,7 +45,7 @@ for (file of files) {
 	promises.push(client.hsetAsync(
 		process.env.DRAY_JOB_ID,
 		filename,
-		fs.readFileSync(file).toString()
+		fs.readFileSync(file)
 	));
 }
 // Expire this record after some time
