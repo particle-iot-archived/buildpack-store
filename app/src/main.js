@@ -39,7 +39,7 @@ if (!_.endsWith(inputDir, path.sep)) {
 let files = glob.sync(`${inputDir}*`);
 let promises = [];
 // ...and store them in Redis
-for (file of files) {
+for (let file of files) {
 	let filename = file.replace(inputDir, '');
 	let key = `${process.env.DRAY_JOB_ID}_${filename}`;
 
