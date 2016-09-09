@@ -1,8 +1,8 @@
-FROM particle/buildpack-base-node:node_v6.2.1
+FROM particle/buildpack-base-node:0.1.0-node_v6.2.1
 
 COPY bin /bin
 WORKDIR /app
 # Copy package.json first to cache npm install
 COPY app/package.json /app
-RUN /bin/run-in-nvm npm install
+RUN npm install
 COPY app /app

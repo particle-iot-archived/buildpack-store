@@ -1,2 +1,3 @@
+#!/bin/bash
 cd /app
-/bin/run-in-nvm node index.js
+node index.js
