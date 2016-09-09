@@ -1,4 +1,4 @@
-FROM particle/buildpack-base-node:0.1.0-node_v6.2.1
+FROM particle/buildpack-base-node:0.1.1-node_v6.2.1
 
 COPY bin /bin
 WORKDIR /app
@@ -6,3 +6,4 @@ WORKDIR /app
 COPY app/package.json /app
 RUN npm install
 COPY app /app
+RUN npm run compile

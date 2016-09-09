@@ -1,9 +1,10 @@
-let path = require('path');
-let fs = require('fs');
-require('dotenv').config({silent: true});
-let glob = require('glob');
-let _ = require('lodash');
-let bluebird = require('bluebird');
+import path from 'path';
+import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config({silent: true});
+import glob from 'glob';
+import _ from 'lodash';
+import bluebird from 'bluebird';
 
 // Set up Redis client
 let redis = require('redis');
